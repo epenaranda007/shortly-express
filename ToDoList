@@ -1,0 +1,49 @@
+/*
+Users
+[X]1. Create users table for usernames, passwords(), and salt(?).
+2. Add routes to your Express server to process incoming POST requests. 
+  a. Callback function to new routes
+  //app.post('/login')
+  //app.post('/signup')
+
+Sessions and Cookies
+1. Create a sessions table to store your generated session hashes and the user ids associated with those sessions.
+2. Need to define cookieParser and sessionParser
+3. Mount the two Parser in app.js as middleware
+
+Authenticated Routes
+1. Add checkUser helper function to all server routes that require logs.
+2. Give the user way to logout.
+
+Write 3 tests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

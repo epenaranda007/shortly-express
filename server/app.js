@@ -48,11 +48,30 @@ app.get('/signup', function (req, res) {
   res.render('signup');
 });
 
+app.get('/login', function(req, res) {
+  res.render('login');
+});
+
+app.post('/login', function (req, res) {
+  Users.checkIfUserExist(req.body.username, function(bool) {
+    if (bool) {
+      Users.checkPassword(req.body.password, function(bool) {
+        if (bool) {
+          res.redirect('/');
+        } else {
+          res.redirect('/login');
+        }
+      });
+    } else {
+      res.redirect('/login');
+    }
+  });
+});
+
 app.post('/signup', 
   function(req, res) {
     Users.checkIfUserExist(req.body.username, function(bool) {
       if (bool) {
-        console.log('hi from bool');
         res.redirect('/signup');
       } else {
         Users.addUser(req.body);      

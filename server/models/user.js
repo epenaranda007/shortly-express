@@ -16,7 +16,6 @@ var checkIfUserExist = function(username, cb) {
 
 var addUser = function(user) {
   var username = user.username;
-  console.log('I am adding ' + user);
   var sha = crypto.createHash('sha1');
   sha.update(user.password);
   var password = sha.digest('hex');
@@ -24,9 +23,24 @@ var addUser = function(user) {
   return db.queryAsync(queryString, {username: username, password: password});
 };
 
+var checkPassword = function(password, cb) {
+  var sha = crypto.createHash('sha1');
+  sha.update(password);
+  var hash = sha.digest('hex');
+  var queryString = 'SELECT password FROM users WHERE users.password = ?';
+  db.query(queryString, [hash], function(err, rows) {
+    if (rows.length > 0) {
+      cb(true);
+    } else {
+      cb(false);
+    }
+  });
+};
+
 module.exports = {
   addUser: addUser,
-  checkIfUserExist: checkIfUserExist
+  checkIfUserExist: checkIfUserExist,
+  checkPassword: checkPassword
 };
 
 

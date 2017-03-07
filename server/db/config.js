@@ -39,8 +39,7 @@ module.exports = function(db) {
       hash VARCHAR(255) NOT NULL,\
       user_id INTEGER DEFAULT NULL,\
       timestamp TIMESTAMP,\
-      PRIMARY KEY (id),\
-      FOREIGN KEY (user_id) REFERENCES users(id)\
+      PRIMARY KEY (id)\
       );');
   })
 
@@ -51,6 +50,7 @@ module.exports = function(db) {
   // TODO: create table for users with username and passwords column and salt property
 
   /*
+  FOREIGN KEY (user_id) REFERENCES users(id) on delete cascade\
 
   Create a sessions table to store your generated session hashes and the user ids associated with those sessions.
 

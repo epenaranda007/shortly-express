@@ -21,3 +21,7 @@ exports.isValidUrl = function(url) {
 // Add additional utility functions below
 /************************************************************/
 
+// TODO: for user authentication 
+// Check Node crypto docs
+// Write a helper function inside 'lib/utility.js' that will verify if the incoming cookie is valid.
+// If an incoming cookie is not valid, what should you think you should do with that session and cookie? Destroy!

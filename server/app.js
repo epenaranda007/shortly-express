@@ -26,6 +26,7 @@ function(req, res) {
   res.render('index');
 });
 
+
 app.get('/create', 
 function(req, res) {
   res.render('index');
@@ -42,6 +43,19 @@ function(req, res, next) {
     next({ status: 500, error: error });
   });
 });
+
+
+app.post('/signup', 
+  function(req, res) {
+    console.log('req body:', req.body);
+    Users.addUser(req.body);
+    //user.js
+      //user name + password (encrypted);
+    //redirect user to appropriate page
+    //Users.
+    //res.redirect('index');
+    res.end('');
+  });
 
 app.post('/links', 
 function(req, res, next) {
@@ -85,7 +99,7 @@ function(req, res, next) {
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
-
+// Mount cookieParser and sessionParser
 
 
 /************************************************************/

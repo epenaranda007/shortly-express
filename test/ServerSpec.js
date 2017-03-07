@@ -373,8 +373,8 @@ describe('', function() {
       });
     });
 
-    xdescribe('Session Parser', function() {
-      it('initializes a new session when there are no cookies on the request', function() {
+    describe('Session Parser', function() {
+      xit('initializes a new session when there are no cookies on the request', function() {
         var requestWithoutCookies = httpMocks.createRequest();
         var response = httpMocks.createResponse();
 
@@ -385,7 +385,7 @@ describe('', function() {
         });
       });
 
-      it('sets a new cookie on the response when a session is initialized', function() {
+      xit('sets a new cookie on the response when a session is initialized', function() {
         var requestWithoutCookie = httpMocks.createRequest();
         var response = httpMocks.createResponse();
 
@@ -403,10 +403,11 @@ describe('', function() {
 
         sessionParser(requestWithoutCookie, response, function() {
           var cookie = response.cookies.shortlyid.value;
+          console.log('test cookie ---->', cookie);
           var secondResponse = httpMocks.createResponse();
           var requestWithCookies = httpMocks.createRequest();
           requestWithCookies.cookies.shortlyid = cookie;
-
+          console.log('requestWithCookies.cookies-------', requestWithCookies.cookies);
           sessionParser(requestWithCookies, secondResponse, function() {
             var session = requestWithCookies.session;
             expect(session).to.be.an('object');
@@ -417,7 +418,7 @@ describe('', function() {
         });
       });
 
-      it('creates a new hash for each new session', function(done) {
+      xit('creates a new hash for each new session', function(done) {
         var requestWithoutCookies = httpMocks.createRequest();
         var response = httpMocks.createResponse();
 
@@ -434,7 +435,7 @@ describe('', function() {
         });
       });
 
-      it('assigns a username and user_id property to the session object if the session is assigned to a user', function(done) {
+      xit('assigns a username and user_id property to the session object if the session is assigned to a user', function(done) {
         var requestWithoutCookie = httpMocks.createRequest();
         var response = httpMocks.createResponse();
         var username = 'BillZito';
@@ -463,7 +464,7 @@ describe('', function() {
         });
       });
 
-      it('clears and resets the cookie if there is no session assigned to the cookie', function(done) {
+      xit('clears and resets the cookie if there is no session assigned to the cookie', function(done) {
         var maliciousCookieHash = '8a864482005bcc8b968f2b18f8f7ea490e577b20';
         var response = httpMocks.createResponse();
         var requestWithMalicioousCookie = httpMocks.createRequest();
@@ -476,7 +477,7 @@ describe('', function() {
         });
       });
 
-      it('removes session from database if used by a different browser', function(done) {
+      xit('removes session from database if used by a different browser', function(done) {
         var client = 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0)';
         var maliciousClient = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36';
 

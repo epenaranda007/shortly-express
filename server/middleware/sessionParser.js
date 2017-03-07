@@ -1,10 +1,55 @@
 var Sessions = require('../models/session');
 var util = require('../lib/utility');
+var Users = require('../models/user');
 
 var createSession = function(req, res, next) {
+  //get cookies from request object
+  // console.log('req.cookies', req.cookies);
+  if (Object.keys(req.cookies).length === 0) {
+    var sessionObj = {};
+    sessionObj.hash = util.createHash((Math.random() * 1000).toString());
+    req.session = sessionObj;
+    res.cookies = {shortlyid: {value: sessionObj.hash}};
+    Sessions.createSession(req.session);
+    //next();
+    //TODO-- pass userID?
+  } else {
+    console.log('req.cookies ===>', req.cookies);
+    Sessions.checkAllCookies(req.cookies, function(bool, userId, hash) {
+      // console.log('Sessions.checkAllCookies(req.cookies');
+      console.log('is sessions.checkAllCookies working?', bool, userId, hash);
+      if (bool) {
+        Users.getUserNameFromID(userId, function(bool1, username) { 
+          if (bool1) {
+            sessionObj['user_id'] = userId;
+            sessionObj.username = username;
+            sessionObj.hash = hash;
+            req.session = sessionObj; 
+            //next();
+          }
+        });
+      }
+    });
+  //verify if cookie exists in sessions table
+    //if yes, add it to the session object
+    //and attach req.session object to the request
+      //req.session object should contain user_id and username
+    //if no, generate hash, and store it to the db in sessions table
+      //use node crypto module included in lib/utility
+    //if incoming cookie is not valid, 
+      //destroy!!!! "banned!"
+  }
+  next();
 };
-
 module.exports = createSession;
+
+ /*
+  INIT:
+    //check the cookie if empty
+    // create a cookie/hash
+    // create a session object with hash,userid,username properties
+
+  */
 
 /*
 

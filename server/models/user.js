@@ -37,10 +37,23 @@ var checkPassword = function(password, cb) {
   });
 };
 
+var getUserNameFromID = function(userId, cb) {
+  var queryString = 'SELECT username FROM users WHERE users.id = ?';
+  db.query(queryString, [userID], function(err, rows) {
+    if (rows.length > 0) {
+      console.log(rows[0]);
+      cb(true, rows[0].username);
+    } else {
+      cb(false);
+    }
+  });
+};
+
 module.exports = {
   addUser: addUser,
   checkIfUserExist: checkIfUserExist,
-  checkPassword: checkPassword
+  checkPassword: checkPassword,
+  getUserNameFromID: getUserNameFromID
 };
 
 

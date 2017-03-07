@@ -1,11 +1,15 @@
 var parseCookies = function(req, res, next) {
+  var cookieObj = {};
+  if (req.headers.cookie) {
+    var cookiesArray = req.headers.cookie.split(';');
+    cookiesArray.forEach(function(cookie) {
+      var temp = cookie.split('=');
+      cookieObj[temp[0].trim()] = temp[1];
+    });
+  }
+
+  req.cookies = cookieObj;
+  next();
 };
 
 module.exports = parseCookies;
-
-
-/*
-
-In middleware/cookieParser.js, write a middleware function that will access the cookies on an incoming request, parse them into an object, and add this object to a cookies property on the request.
-
-*/

@@ -37,9 +37,10 @@ module.exports = function(db) {
     return db.queryAsync('CREATE TABLE IF NOT EXISTS sessions (\
       id INTEGER NOT NULL AUTO_INCREMENT,\
       hash VARCHAR(255) NOT NULL,\
-      userId INTEGER NOT NULL,\
+      user_id INTEGER DEFAULT NULL,\
       timestamp TIMESTAMP,\
-      PRIMARY KEY (id)\
+      PRIMARY KEY (id),\
+      FOREIGN KEY (user_id) REFERENCES users(id)\
       );');
   })
 

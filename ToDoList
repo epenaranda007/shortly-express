@@ -1,7 +1,7 @@
 /*
 Users
 [X]1. Create users table for usernames, passwords(), and salt(?).
-2. Add routes to your Express server to process incoming POST requests. 
+[X] 2. Add routes to your Express server to process incoming POST requests. 
   a. Callback function to new routes
   //app.post('/login')
   //app.post('/signup')
@@ -18,7 +18,8 @@ Authenticated Routes
 Write 3 tests
 
 
-
+REFACTORS LATER:
+1. refactor sessions table.
 
 
 

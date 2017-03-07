@@ -44,17 +44,21 @@ function(req, res, next) {
   });
 });
 
+app.get('/signup', function (req, res) {
+  res.render('signup');
+});
 
 app.post('/signup', 
   function(req, res) {
-    console.log('req body:', req.body);
-    Users.addUser(req.body);
-    //user.js
-      //user name + password (encrypted);
-    //redirect user to appropriate page
-    //Users.
-    //res.redirect('index');
-    res.end('');
+    Users.checkIfUserExist(req.body.username, function(bool) {
+      if (bool) {
+        console.log('hi from bool');
+        res.redirect('/signup');
+      } else {
+        Users.addUser(req.body);      
+        res.redirect('/');
+      }
+    });
   });
 
 app.post('/links', 

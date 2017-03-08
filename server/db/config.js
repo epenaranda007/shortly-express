@@ -27,7 +27,7 @@ module.exports = function(db) {
     return db.queryAsync('CREATE TABLE IF NOT EXISTS users (\
       id INTEGER NOT NULL AUTO_INCREMENT,\
       username VARCHAR(16) UNIQUE NOT NULL,\
-      password VARCHAR(255) NOT NULL,\
+      password VARCHAR(255) DEFAULT NULL,\
       salt VARCHAR(255) DEFAULT NULL,\
       timestamp TIMESTAMP,\
       PRIMARY KEY (id)\

@@ -39,7 +39,7 @@ var checkPassword = function(password, cb) {
 
 var getUserNameFromID = function(userId, cb) {
   var queryString = 'SELECT username FROM users WHERE users.id = ?';
-  db.query(queryString, [userID], function(err, rows) {
+  db.query(queryString, [userId], function(err, rows) {
     if (rows.length > 0) {
       console.log(rows[0]);
       cb(true, rows[0].username);
@@ -48,6 +48,19 @@ var getUserNameFromID = function(userId, cb) {
     }
   });
 };
+
+var getUserIdFromName = function(username, cb) {
+  var queryString = 'SELECT id FROM users WHERE users.username = ?';
+  db.query(queryString, [username], function(err, rows) {
+    if (rows.length > 0) {
+      console.log(rows[0]);
+      cb(true, rows[0].id);
+    } else {
+      cb(false);
+    }
+  });
+};
+
 
 module.exports = {
   addUser: addUser,

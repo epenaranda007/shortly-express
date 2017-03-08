@@ -3,31 +3,31 @@ var util = require('../lib/utility');
 var Users = require('../models/user');
 
 var createSession = function(req, res, next) {
-  //get cookies from request object
-  // console.log('req.cookies', req.cookies);
+  var sessionObj = {};  
   if (Object.keys(req.cookies).length === 0) {
-    var sessionObj = {};
     sessionObj.hash = util.createHash((Math.random() * 1000).toString());
     req.session = sessionObj;
     res.cookies = {shortlyid: {value: sessionObj.hash}};
     Sessions.createSession(req.session);
-    //next();
+    next();
     //TODO-- pass userID?
   } else {
-    console.log('req.cookies ===>', req.cookies);
+    
     Sessions.checkAllCookies(req.cookies, function(bool, userId, hash) {
-      // console.log('Sessions.checkAllCookies(req.cookies');
-      console.log('is sessions.checkAllCookies working?', bool, userId, hash);
       if (bool) {
-        Users.getUserNameFromID(userId, function(bool1, username) { 
-          if (bool1) {
-            sessionObj['user_id'] = userId;
-            sessionObj.username = username;
-            sessionObj.hash = hash;
-            req.session = sessionObj; 
-            //next();
-          }
-        });
+        // Users.getUserNameFromID(userId, function(bool1, username) { 
+          // if (bool1) {
+            // sessionObj['user_id'] = userId;
+            //sessionObj.username = username;
+            // sessionObj.hash = hash;
+        sessionObj.hash = hash;
+            // req.session = sessionObj; 
+            // req.session = {hash: hash};
+        req.session = {hash: hash};
+            // next();
+        next();
+          // }
+        // });
       }
     });
   //verify if cookie exists in sessions table
@@ -39,7 +39,7 @@ var createSession = function(req, res, next) {
     //if incoming cookie is not valid, 
       //destroy!!!! "banned!"
   }
-  next();
+  // next();
 };
 module.exports = createSession;
 

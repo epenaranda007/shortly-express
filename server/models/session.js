@@ -28,15 +28,20 @@ var checkAllCookies = function(cookies, cb) {
 
 var createSession = function(session) { //session?
   var queryString = 'INSERT INTO sessions SET ?';
-  var x = db.query(queryString, {hash: session.hash, 'user_id': 1}, function(err, result) {
+  db.query(queryString, {hash: session.hash, 'user_id': 1}, function(err, result) {
 
   });
+};
+var deleteSession = function(session) {
+  var queryString = 'DELETE FROM sessions WHERE sessions.hash = ?';
+  db.queryAsync(queryString, [session.hash]);
+};
   //TODO
   //add userId in the query
-};
 
 module.exports = {
   checkIfSessionExists: checkIfSessionExists,
   checkAllCookies: checkAllCookies,
-  createSession: createSession
+  createSession: createSession,
+  deleteSession: deleteSession
 };

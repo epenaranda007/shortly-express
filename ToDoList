@@ -7,8 +7,8 @@ Users
   //app.post('/signup')
 
 Sessions and Cookies
-1. Create a sessions table to store your generated session hashes and the user ids associated with those sessions.
-2. Need to define cookieParser and sessionParser
+[x]1. Create a sessions table to store your generated session hashes and the user ids associated with those sessions.
+[]2. Need to define cookieParser and sessionParser
 3. Mount the two Parser in app.js as middleware
 
 Authenticated Routes
@@ -21,10 +21,7 @@ Write 3 tests
 REFACTORS LATER:
 1. refactor sessions table.
 
-
-
-
-
+2. refactor sessions to set cookie based on agent + salt; 
 
 
 
